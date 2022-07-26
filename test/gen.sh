@@ -5,8 +5,7 @@ set -e
 set -o pipefail
 
 cd "$(git rev-parse --show-toplevel)"
-# PROTOC="./third_party/_submodules/protobuf/src/protoc"
-PROTOC="protoc"
+PROTOC="./third_party/_submodules/protobuf/src/protoc"
 PROTOBUF_PROTO="./third_party/_submodules/protobuf/src"
 TABLEAU_PROTO="./third_party/_submodules/tableau/proto"
 PROTOCONF_IN="./test/proto"
@@ -19,8 +18,8 @@ CHECKER_OUT="./test/check"
 export PATH="$PATH:$LOADER_PLUGIN_DIR:$CHECKER_PLUGIN_DIR"
 
 # build
-cd $LOADER_PLUGIN_DIR && go build && cd -
-cd $CHECKER_PLUGIN_DIR && go build && cd -
+cd $LOADER_PLUGIN_DIR && go build && cd - || exit 1
+cd $CHECKER_PLUGIN_DIR && go build && cd - || exit 1
 
 # remove old generated files
 rm -rfv "$PROTOCONF_OUT" "$LOADER_OUT"
